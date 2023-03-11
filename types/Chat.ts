@@ -1,6 +1,6 @@
-type Sender = 'user' | 'ia';
+type Sender = 'user' | 'assistant' | 'system';
 
 export type Chat = {
-  sender: Sender;
-  message: string;
+  role: Sender;
+  content: string;
 }
