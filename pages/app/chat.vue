@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { PaperAirplaneIcon } from "@heroicons/vue/24/outline";
 import {Chat} from "~/types/Chat";
+import {useErrorToast} from "~/composables/useToasts";
 definePageMeta({
   name: "Chat",
   title: "Chat",
@@ -35,6 +36,7 @@ async function sendMessage() {
     loading.value = false;
   } catch (e) {
     console.error(e);
+    useErrorToast("Oups, j'ai eu un problème :(");
     loading.value = false;
   }
 }
