@@ -53,7 +53,7 @@ async function sendMessage() {
            :class="msg.role === 'assistant' ? 'items-start' : 'items-end'">
         <div class="card-message p-4 bg-secondary rounded-xl shadow-xl text-sm inline-block max-w-xl"
              v-if="msg.role !== 'system'">
-          <pre><code v-html="msg.content" class="break-words whitespace-pre-wrap"></code></pre>
+          <pre><code v-html="$mdRenderer.render(msg.content)" class="prose break-words whitespace-pre-wrap"></code></pre>
         </div>
       </div>
       <div class="flex justify-center items-center" v-if="loading">
