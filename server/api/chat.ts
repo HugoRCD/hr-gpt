@@ -18,7 +18,6 @@ export default eventHandler(async (event: H3Event) => {
     stream: false,
     stop: ["user", "assistant"],
   });
-  console.log("Ia response", response.data.choices[0].message);
   const ia_response = response.data.choices[0].message;
   return {
     statusCode: 200,

@@ -50,7 +50,7 @@ async function sendMessage() {
         <img src="/loader.gif" alt="Loading..." class="h-24 w-24" />
       </div>
     </div>
-    <form class="bg-secondary w-full h-40 p-4 flex items-center flex-shrink-0" @submit.prevent="sendMessage" style="position: sticky; bottom: 0;">
+    <form class="bg-secondary w-full h-26 md:h-40 p-4 flex items-center flex-shrink-0" @submit.prevent="sendMessage" style="position: sticky; bottom: 0;">
     <textarea v-model="message"
               @keydown.enter.prevent="sendMessage"
               :disabled="loading"
