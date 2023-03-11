@@ -1,0 +1,25 @@
+[data-theme="dark"] {
+  --accent-color: 4, 187, 244;
+  --accent-color-hover: 4, 187, 244;
+  --accent-color-faded: rgba(4, 187, 244, 0.1);
+
+  --accent: #04BBF4; // Just to see the color only the -accent-color use in the app
+  --accent-hover: #04BBF4; // Just to see the color only the -accent-color-hover use in the app
+
+  --accent-primary: #04BBF4;
+  --accent-secondary: #3E0CAB;
+
+  --bg-primary: #0C0C0D;
+  --bg-primary-opacity: 12, 12, 13;
+  --bg-secondary: #18181B;
+  --font-color: #FFFFFF;
+
+  --font-primary: #FFFFFF;
+  --font-muted: #66646A;
+  --font-inverted: #FFFFFF;
+
+  --border-primary: #2c282e;
+  --border-primary-hover: #66646A;
+  --border-muted: #1C1822;
+  --font-placeholder: #403D46;
+}
