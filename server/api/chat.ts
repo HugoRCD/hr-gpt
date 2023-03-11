@@ -15,9 +15,10 @@ export default eventHandler(async (event: H3Event) => {
     model: "gpt-3.5-turbo",
     messages: chat,
     temperature: 0.9,
-    stream: false,
+    stream: true,
     stop: ["user", "assistant"],
   });
+  console.log(response.data);
   const ia_response = response.data.choices[0].message;
   return {
     statusCode: 200,
