@@ -25,12 +25,12 @@ const availableLocales = [
 
 watch(locale, (newLang) => {
   locale.value = newLang;
-  useLocalStorage("helpr_locale", newLang);
+  useLocalStorage("gpt_locale", newLang);
 });
 
 const setLocale = (newLocale: string) => {
   locale.value = newLocale;
-  useLocalStorage("helpr_locale", newLocale).value = newLocale;
+  useLocalStorage("gpt_locale", newLocale).value = newLocale;
 };
 
 const currentLocale = computed(() => {

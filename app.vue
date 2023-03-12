@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useChatStore } from "~/store/ChatStore";
 
+const { locale } = useI18n();
+
 useHead({
   title: useAppConfig().appTitle,
   meta: [
@@ -21,6 +23,12 @@ useHead({
       crossorigin: "anonymous",
     },
   ],
+});
+
+onMounted(() => {
+  const userLocale = useLocalStorage("gpt_locale", "en");
+  useGlobalStore().setLocale(userLocale.value);
+  locale.value = userLocale.value;
 });
 
 await useChatStore().fetchChats();

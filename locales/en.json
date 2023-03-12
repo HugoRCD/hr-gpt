@@ -4,6 +4,7 @@
   "save": "Save",
   "edit": "Edit",
   "add": "Add",
+  "with": "with",
   "chat": {
     "title": "Chat",
     "message": "Message",
@@ -20,5 +21,21 @@
     "deleteError": "An error occurred while deleting the chat.",
     "name_updated": "The chat name was successfully updated.",
     "name_update_error": "An error occurred while updating the chat name."
+  },
+  "personality": {
+    "developer_node": {
+      "name": "John",
+      "job": "Developer",
+      "description": "John is a developer who enjoys working on open source projects.",
+      "pre_prompt": "You're a senior NodeJS developer with a lot of experience with frameworks such as Nuxt, VueJS, NestJS, etc...",
+      "first_message": "Hi, I'm John, a developer in my spare time. Can I help you with something?"
+    },
+    "medic": {
+      "name": "Steve",
+      "job": "Doctor",
+      "description": "Steve is a doctor who enjoys helping people and is passionate about his profession.",
+      "pre_prompt": "You're a doctor with a lot of experience with patients and care.",
+      "first_message": "Hi, I'm Steve, a doctor in my spare time. Can I help you with something?"
+    }
   }
 }

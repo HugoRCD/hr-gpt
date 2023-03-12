@@ -6,6 +6,8 @@ import {
   UserIcon,
 } from '@heroicons/vue/24/outline'
 import { useChatStore } from "~/store/ChatStore";
+const { t } = useI18n();
+const { locale } = useI18n();
 definePageMeta({
   title: "Home",
   name: "Home",
@@ -13,39 +15,65 @@ definePageMeta({
   description: "Home page",
   keywords: "Home",
 });
-const personalities = [
+
+const personalities = ref([
   {
-    personality: "Développeur",
-    description:
-      "Je suis un développeur expérimenté ayant plus de 10 ans d'expérience, principalement en NodeJS, j'aime le travail clair et concis, je suis un perfectionniste",
-    pre_prompt: "You are a developer, specialized in NodeJS, your are perfectionist and you like challenges",
-    first_message: "Hello, I'm Steve, I'm a developer and I'm here to help you, what can I do for you?",
+    name: t("personality.developer_node.name"),
+    job: t("personality.developer_node.job"),
+    description: t("personality.developer_node.description"),
+    pre_prompt: t("personality.developer_node.pre_prompt"),
+    first_message: t("personality.developer_node.first_message"),
     icon: CodeBracketIcon,
     iconForeground: 'text-teal-700',
     iconBackground: 'bg-teal-50',
   },
   {
-    personality: "Médecin",
-    description:
-      "Je suis un médecin ayant un cabinet depuis une dizaine d'années, j'ai pu aider beaucoup de personnes à travers le monde, je suis passionné par mon métier",
-    pre_prompt: "You are a medic, you have a clinic for 10 years, you have helped a lot of people around the world, you are passionate about your job",
-    first_message: "Hello, I'm John, I'm a medic and I'm here to help you, what can I do for you?",
+    name: t("personality.medic.name"),
+    job: t("personality.medic.job"),
+    description: t("personality.medic.description"),
+    pre_prompt: t("personality.medic.pre_prompt"),
+    first_message: t("personality.medic.first_message"),
     icon: HeartIcon,
     iconForeground: 'text-orange-700',
     iconBackground: 'bg-orange-50',
   }
-]
+])
+
+watch(locale, () => {
+  personalities.value = [
+    {
+      name: t("personality.developer_node.name"),
+      job: t("personality.developer_node.job"),
+      description: t("personality.developer_node.description"),
+      pre_prompt: t("personality.developer_node.pre_prompt"),
+      first_message: t("personality.developer_node.first_message"),
+      icon: CodeBracketIcon,
+      iconForeground: 'text-teal-700',
+      iconBackground: 'bg-teal-50',
+    },
+    {
+      name: t("personality.medic.name"),
+      job: t("personality.medic.job"),
+      description: t("personality.medic.description"),
+      pre_prompt: t("personality.medic.pre_prompt"),
+      first_message: t("personality.medic.first_message"),
+      icon: HeartIcon,
+      iconForeground: 'text-orange-700',
+      iconBackground: 'bg-orange-50',
+    }
+  ]
+})
 
 const chatStore = useChatStore();
 const loading = ref(false);
 
-async function startChat(pre_prompt: string, first_message: string) {
+async function startChat(pre_prompt: string, first_message: string, name: string) {
   loading.value = true;
   const { data } = await useFetch("/api/chat/startChat", {
     method: "POST",
     body: {
       userId: 1,
-      name: "Chat " + Math.floor(Math.random() * 1000),
+      name: "Chat " + t("with") + " " + t("personality.developer_node.name"),
       pre_prompt,
       first_message,
     },
@@ -59,19 +87,19 @@ async function startChat(pre_prompt: string, first_message: string) {
 
 <template>
   <div class="md:pl-64 w-full">
-    <div class="p-4 divide-y divide-gray-200 overflow-hidden rounded-lg bg-primary shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
-      <div v-for="(person, personIdx) in personalities" :key="person.personality" :class="[personIdx === 0 ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none' : '', personIdx === 1 ? 'sm:rounded-tr-lg' : '', personIdx === person.length - 2 ? 'sm:rounded-bl-lg' : '', personIdx === person.length - 1 ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none' : '', 'group relative bg-secondary p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-accent']">
+    <div class="p-4 divide-y divide-primary overflow-hidden rounded-lg bg-primary shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
+      <div v-for="(person, personIdx) in personalities" :key="person.job" :class="[personIdx === 0 ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none' : '', personIdx === 1 ? 'sm:rounded-tr-lg' : '', personIdx === person.length - 2 ? 'sm:rounded-bl-lg' : '', personIdx === person.length - 1 ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none' : '', 'group relative bg-secondary p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-accent']">
         <div>
-        <span :class="[person.iconBackground, person.iconForeground, 'inline-flex rounded-lg p-3 ring-4 ring-white']">
+        <span :class="[person.iconBackground, person.iconForeground, 'inline-flex rounded-lg p-3 ring-4 ring-primary']">
           <component :is="person.icon" class="h-6 w-6" aria-hidden="true" />
         </span>
         </div>
         <div class="mt-8">
           <h3 class="text-base font-semibold leading-6 text-primary">
-            <button class="focus:outline-none" @click="startChat(person.pre_prompt, person.first_message)">
+            <button class="focus:outline-none" @click="startChat(person.pre_prompt, person.first_message, person.name)">
               <!-- Extend touch target to entire panel -->
               <span class="absolute inset-0" aria-hidden="true" />
-              {{ person.personality }}
+              {{ person.job }}
             </button>
           </h3>
           <p class="mt-2 text-sm text-muted">
