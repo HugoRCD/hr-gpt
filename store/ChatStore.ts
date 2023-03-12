@@ -20,7 +20,6 @@ export const useChatStore = defineStore({
       this.loading = true;
       const { data: chats } = useFetch<Chat[]>("/api/chat/all");
       if (chats.value) {
-        console.log(chats.value);
         this.chats = chats.value;
       }
       this.loading = false;

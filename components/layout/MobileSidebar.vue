@@ -1,6 +1,30 @@
 <script setup lang="ts">
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
-import { ArrowLeftOnRectangleIcon, Bars3BottomLeftIcon, XMarkIcon, PlusCircleIcon } from "@heroicons/vue/24/outline";
+import { PlusCircleIcon, ChatBubbleLeftIcon, Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { useChatStore } from "~/store/ChatStore";
+
+const chatStore = useChatStore();
+
+const chats = computed(() => {
+  return chatStore.getChats;
+});
+
+const loading = ref(false);
+
+async function startChat() {
+  loading.value = true;
+  const { data } = await useFetch("/api/chat/startChat", {
+    method: "POST",
+    body: {
+      userId: 1,
+      name: "Test Chat",
+    },
+  });
+  if (data.value) {
+    chatStore.addChat(data.value);
+    loading.value = false;
+  }
+}
 
 const sidebarOpen = ref(false);
 </script>
@@ -59,13 +83,25 @@ const sidebarOpen = ref(false);
                     <div class="flex flex-shrink-0 items-center px-4">
                       <Logo :isText="true" :isLogo="true" />
                     </div>
-                    <nav class="flex-1" aria-label="Sidebar">
-                      <hr class="my-5 border-t border-muted" aria-hidden="true" />
-                      <div class="space-y-1 px-2">
-                        <button class="w-full mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient">
-                          <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
-                          Ajouter un nouveau chat
-                        </button>
+                    <nav class="flex flex-col h-full">
+                      <div class="flex-1 space-y-4 flex-start">
+                        <hr class="my-5 border-t border-muted" aria-hidden="true" />
+                        <div class="space-y-4 px-2">
+                          <button class="w-full mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient" @click="startChat">
+                            <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
+                            {{ $t("chat.add") }}
+                          </button>
+                          <NuxtLink :to="`/chat/${chat.id}`"
+                                    v-for="chat in chats" :key="chat.id" class="w-full bg-secondary flex items-center p-3 text-sm font-medium rounded-md text-white">
+                            <ChatBubbleLeftIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
+                            {{ chat.name }}
+                          </NuxtLink>
+                          <Loader v-if="loading" :size="6" />
+                        </div>
+                      </div>
+                      <div>
+                        <hr class="my-5 border-t border-muted" aria-hidden="true" />
+                        <LanguageSelector :is-text="true" />
                       </div>
                     </nav>
                   </div>

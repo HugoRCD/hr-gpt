@@ -43,7 +43,7 @@ async function startChat() {
                   <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                   {{ $t("chat.add") }}
                 </button>
-                <NuxtLink :to="`/${chat.id}`"
+                <NuxtLink :to="`/chat/${chat.id}`"
                           v-for="chat in chats" :key="chat.id" class="w-full bg-secondary flex items-center p-3 text-sm font-medium rounded-md text-white">
                   <ChatBubbleLeftIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                   {{ chat.name }}
