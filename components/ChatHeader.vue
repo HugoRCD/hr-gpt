@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { ExclamationTriangleIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { useChatStore } from "~/store/ChatStore";
+const { t } = useI18n();
 
 const props = defineProps({
   chatId: {
@@ -25,12 +27,14 @@ async function updateName() {
       },
     });
     if (data.value) {
+      useSuccessToast(t("chat.name_updated"));
       nameRef.value = data.value.name;
-      useSuccessToast("Nom du chat mis à jour avec succès !");
+      edit_mode.value = false;
+      useChatStore().updateChat(props.chatId, data.value);
     }
   } catch (e) {
     console.error(e);
-    useErrorToast("Oups, j'ai eu un problème :(");
+    useErrorToast(t("chat.name_update_error"));
   }
 }
 
@@ -40,12 +44,13 @@ async function deleteChat() {
       method: "DELETE",
     });
     if (data.value) {
-      useSuccessToast("Chat supprimé avec succès !");
-      useRouter().push("/app/chat");
+      useChatStore().removeChat(props.chatId);
+      useSuccessToast(t("chat.deleteSuccess"));
+      useRouter().push("/");
     }
   } catch (e) {
     console.error(e);
-    useErrorToast("Oups, j'ai eu un problème :(");
+    useErrorToast(t("chat.deleteError"));
   }
 }
 </script>
@@ -65,21 +70,21 @@ async function deleteChat() {
               class="flex gap-2 inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
         <PencilIcon class="h-4 w-4" />
         <span class="hidden sm:block">
-          Modifier le nom
+          {{ $t("chat.edit") }}
         </span>
       </button>
       <button type="button" @click="edit_mode = !edit_mode" v-else
               class="flex gap-2 inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
         <XMarkIcon class="h-4 w-4" />
         <span class="hidden sm:block">
-          Annuler
+          {{ $t("cancel") }}
         </span>
       </button>
       <button type="button" @click="open = true"
               class="flex gap-2 ml-3 inline-flex items-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600">
         <TrashIcon class="h-4 w-4" />
         <span class="hidden sm:block">
-          Supprimer le chat
+          {{ $t("chat.delete") }}
         </span>
       </button>
     </div>
@@ -106,11 +111,11 @@ async function deleteChat() {
                   </div>
                   <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">
-                      Supprimer le chat
+                      {{ $t("chat.delete") }}
                     </DialogTitle>
                     <div class="mt-2">
                       <p class="text-sm text-gray-500">
-                        Êtes-vous sûr de vouloir supprimer ce chat ? Cette action est irréversible.
+                        {{ $t("chat.deleteConfirm") }}
                       </p>
                     </div>
                   </div>
@@ -119,12 +124,12 @@ async function deleteChat() {
                   <button type="button"
                           class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto"
                           @click="deleteChat">
-                    Supprimer
+                    {{ $t("chat.delete") }}
                   </button>
                   <button type="button"
                           class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto"
                           @click="open = false" ref="cancelButtonRef">
-                    Annuler
+                    {{ $t("cancel") }}
                   </button>
                 </div>
               </DialogPanel>

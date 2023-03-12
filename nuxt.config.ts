@@ -1,3 +1,6 @@
+import en from "./locales/en.json";
+import fr from "./locales/fr.json";
+
 export default defineNuxtConfig({
   app: {
     layoutTransition: {
@@ -21,10 +24,24 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
     "@pinia/nuxt",
+    "@nuxtjs/i18n",
   ],
 
   imports: {
     dirs: ["store"],
+  },
+
+  i18n: {
+    vueI18n: {
+      legacy: false,
+      locale: "en",
+      fallbackLocale: "en",
+      availableLocales: ["en", "fr"],
+      messages: {
+        en,
+        fr,
+      },
+    },
   },
 
   runtimeConfig: {

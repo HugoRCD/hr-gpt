@@ -5,9 +5,23 @@ export async function getChats() {
   return await prisma.chat.findMany();
 }
 
-export async function createChat(chat: Chat) {
+export async function startChat(userId: number, name: string) {
+  const firstMessage = {
+    role: "assistant",
+    content: "Hello, how can I help you?",
+  }
   return await prisma.chat.create({
-    data: chat,
+    data: {
+      user: {
+        connect: {
+          id: userId,
+        }
+      },
+      name,
+      messages: {
+        create: firstMessage,
+      }
+    },
   });
 }
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useChatStore } from "~/store/ChatStore";
+
 useHead({
   title: useAppConfig().appTitle,
   meta: [
@@ -20,6 +22,8 @@ useHead({
     },
   ],
 });
+
+await useChatStore().fetchChats();
 </script>
 
 <template>

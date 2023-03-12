@@ -1,0 +1,24 @@
+{
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "edit": "Edit",
+  "add": "Add",
+  "chat": {
+    "title": "Chat",
+    "message": "Message",
+    "writeMessage": "Write a message...",
+    "empty": "No chats yet",
+    "emptyDescription": "You can start a chat with any user by clicking on the \"Add a chat\" button.",
+    "emptyButton": "Add a chat",
+    "send": "Send",
+    "add": "Add a chat",
+    "edit": "Edit name",
+    "delete": "Delete chat",
+    "deleteConfirm": "Are you sure you want to delete this chat? This action is irreversible.",
+    "deleteSuccess": "The chat was successfully deleted.",
+    "deleteError": "An error occurred while deleting the chat.",
+    "name_updated": "The chat name was successfully updated.",
+    "name_update_error": "An error occurred while updating the chat name."
+  }
+}

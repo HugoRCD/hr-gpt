@@ -30,5 +30,5 @@ model Message {
   content   String   @db.VarChar(4096)
   role      String
   chatId    Int
-  chat      Chat     @relation(fields: [chatId], references: [id])
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
