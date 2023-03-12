@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
   <div class="text-center">
     <div class="flex justify-center items-center">
-      <img src="/loader.gif" alt="Loading..." :class="`h-${props.size} w-${props.size}`" />
+      <img src="/loader.gif" alt="Loading..." :class="`h-${size} w-${size}`" />
     </div>
     <p class="text" v-if="props.isText">
       {{ $t("loading") }}

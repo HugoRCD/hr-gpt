@@ -5,10 +5,10 @@ export async function getChats() {
   return await prisma.chat.findMany();
 }
 
-export async function startChat(userId: number, name: string) {
+export async function startChat(userId: number, name: string, prePrompt: string, first_message: string) {
   const firstMessage = {
     role: "assistant",
-    content: "Hello, how can I help you?",
+    content: first_message ?? "Hello, how can I help you?",
   }
   return await prisma.chat.create({
     data: {
