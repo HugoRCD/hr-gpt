@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PlusCircleIcon, ChatBubbleBottomCenterIcon } from "@heroicons/vue/24/outline";
+import { PlusCircleIcon, ChatBubbleLeftIcon } from "@heroicons/vue/24/outline";
 import { Chat } from "~/types/Chat";
 
 const { data: chats } = useFetch<Chat[]>("/api/chat/all");
@@ -24,7 +24,7 @@ const { data: chats } = useFetch<Chat[]>("/api/chat/all");
               </button>
               <NuxtLink :to="`/${chat.id}`"
                 v-for="chat in chats" :key="chat.id" class="w-full bg-secondary flex items-center p-3 text-sm font-medium rounded-md text-white">
-                <ChatBubbleBottomCenterIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
+                <ChatBubbleLeftIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                 {{ chat.name }}
               </NuxtLink>
             </div>

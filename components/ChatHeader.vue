@@ -26,6 +26,7 @@ async function updateName() {
     });
     if (data.value) {
       nameRef.value = data.value.name;
+      useSuccessToast("Nom du chat mis à jour avec succès !");
     }
   } catch (e) {
     console.error(e);

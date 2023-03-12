@@ -13,7 +13,8 @@ defineProps({
 <template>
   <div class="card-message p-4 bg-secondary rounded-xl shadow-xl text-sm max-w-xl"
        v-if="message.role !== 'system'">
-    <pre><code v-html="$mdRenderer.render(message.content)" class="prose break-words text-primary whitespace-pre-wrap"></code></pre>
+    <span v-html="$mdRenderer.render(message.content)" class="prose text-primary">
+    </span>
   </div>
 </template>
 

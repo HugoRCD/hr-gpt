@@ -43,7 +43,7 @@ async function sendMessage(regenerate = false) {
 
 <template>
   <div class="flex flex-col">
-    <ChatHeader :name="chat.name" :chat-id="chat.id" />
+    <ChatHeader :name="chat.name" :chat-id="chat.id" class="header" />
      <div class="h-screen p-4 flex-grow overflow-y-auto flex flex-col gap-4">
       <div v-for="msg in chat.messages" :key="msg.id" class="flex flex-col"
            :class="msg.role === 'assistant' ? 'items-start' : 'items-end'">
@@ -69,3 +69,17 @@ async function sendMessage(regenerate = false) {
     </form>
   </div>
 </template>
+
+<style scoped lang="scss">
+.header {
+  position: fixed;
+  width: calc(100% - 16rem);
+}
+
+@media (max-width: 768px) {
+  .header {
+    width: 100%;
+    padding: 0.5rem 1rem;
+  }
+}
+</style>
