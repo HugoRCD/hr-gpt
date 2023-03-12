@@ -43,16 +43,16 @@ async function sendMessage(regenerate = false) {
 </script>
 
 <template>
-  <div class="flex flex-col container_size">
+  <div class="flex flex-col container_size h-full">
     <ChatHeader :name="chat.name" :chat-id="chat.id" />
-     <div class="h-screen p-4 flex-grow overflow-y-auto scroll-smooth flex flex-col gap-4">
-      <div v-for="msg in chat.messages" :key="msg.id" class="flex flex-col"
+    <div class="flex-1 p-4 overflow-y-auto flex-col gap-4">
+      <div v-for="msg in chat.messages" :key="msg.id" class="flex flex-col mb-4"
            :class="msg.role === 'assistant' ? 'items-start' : 'items-end'">
         <Message :message="msg" />
       </div>
       <Loader v-if="loading" />
     </div>
-    <div class="bg-secondary sticky bottom-0 w-full h-26 md:h-50 p-4 flex flex-col items-center flex-shrink-0 gap-4">
+    <footer class="bg-secondary p-4 flex flex-col items-center gap-4">
       <div class="flex items-center flex-shrink-0 w-full">
       <textarea v-model="message"
                 @keydown.enter.prevent="sendMessage"
@@ -65,7 +65,7 @@ async function sendMessage(regenerate = false) {
             class="text-accent cursor-pointer h-8 w-8 ml-4 hover:scale-125 transform transition duration-200 ease-in-out" />
         </button>
       </div>
-    </div>
+    </footer>
   </div>
 </template>
 
@@ -78,17 +78,6 @@ async function sendMessage(regenerate = false) {
 @media (max-width: 768px) {
   .container_size {
     width: 100%;
-  }
-}
-
-.height_chat {
-  height: calc(100% - 50rem);
-  overflow-y: auto;
-}
-
-@media (max-width: 768px) {
-  .height_chat {
-    height: calc(100% - 26rem);
   }
 }
 </style>
