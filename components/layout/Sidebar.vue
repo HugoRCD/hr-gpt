@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { ArrowLeftOnRectangleIcon, PlusCircleIcon } from "@heroicons/vue/24/outline";
+import { PlusCircleIcon, ChatBubbleBottomCenterIcon } from "@heroicons/vue/24/outline";
+import { Chat } from "~/types/Chat";
+
+const { data: chats } = useFetch<Chat[]>("/api/chat/all");
+
 </script>
 
 <template>
@@ -13,11 +17,16 @@ import { ArrowLeftOnRectangleIcon, PlusCircleIcon } from "@heroicons/vue/24/outl
           </div>
           <nav class="flex-1" aria-label="Sidebar">
             <hr class="my-5 border-t border-muted" aria-hidden="true" />
-            <div class="space-y-1 px-2">
+            <div class="space-y-4 px-2">
               <button class="w-full mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient">
                 <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                 Ajouter un nouveau chat
               </button>
+              <NuxtLink :to="`/${chat.id}`"
+                v-for="chat in chats" :key="chat.id" class="w-full bg-secondary flex items-center p-3 text-sm font-medium rounded-md text-white">
+                <ChatBubbleBottomCenterIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
+                {{ chat.name }}
+              </NuxtLink>
             </div>
           </nav>
         </div>

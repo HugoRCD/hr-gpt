@@ -12,6 +12,10 @@ html,body, #__nuxt, #__layout{
   width: 100%!important;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 @layer components {
   .input {
     @apply bg-secondary;
@@ -45,7 +49,7 @@ html,body, #__nuxt, #__layout{
 
   .glass-card {
     @apply flex flex-col items-center backdrop-blur-md bg-primary-opacity/30 rounded-md p-8 shadow-lg;
-    @apply h-80 relative;
+    @apply relative;
   }
 
   .btn-secondary {
