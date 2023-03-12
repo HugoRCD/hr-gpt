@@ -21,12 +21,12 @@ async function sendMessage(regenerate = false) {
     chat.value.messages.push({
       role: "user",
       content: message.value,
-    })
+    });
     const { data } = await useFetch("/api/chat", {
       method: "POST",
       body: {
         chat: chat.value,
-        message: message.value
+        message: message.value,
       },
     });
     if (data.value) {
@@ -50,23 +50,22 @@ async function sendMessage(regenerate = false) {
            :class="msg.role === 'assistant' ? 'items-start' : 'items-end'">
         <Message :message="msg" />
       </div>
-      <Loader v-if="loading" :size="20" />
+      <Loader v-if="loading" />
     </div>
-    <form class="bg-secondary sticky bottom-0 w-full h-26 md:h-50 p-4 flex flex-col items-center flex-shrink-0 gap-4"
-          @submit.prevent="sendMessage">
-    <div class="flex items-center flex-shrink-0 w-full">
+    <div class="bg-secondary sticky bottom-0 w-full h-26 md:h-50 p-4 flex flex-col items-center flex-shrink-0 gap-4">
+      <div class="flex items-center flex-shrink-0 w-full">
       <textarea v-model="message"
                 @keydown.enter.prevent="sendMessage"
                 :disabled="loading"
                 class="w-full bg-primary p-4 text-primary border-none outline-none shadow-xl border-2 border-accent rounded-xl"
                 :placeholder="$t('chat.writeMessage')"
       />
-      <button type="submit" :disabled="loading">
-        <PaperAirplaneIcon
-          class="text-accent cursor-pointer h-8 w-8 ml-4 hover:scale-125 transform transition duration-200 ease-in-out" />
-      </button>
+        <button :disabled="loading" @click="sendMessage" class="flex items-center justify-center">
+          <PaperAirplaneIcon
+            class="text-accent cursor-pointer h-8 w-8 ml-4 hover:scale-125 transform transition duration-200 ease-in-out" />
+        </button>
+      </div>
     </div>
-    </form>
   </div>
 </template>
 
@@ -79,6 +78,17 @@ async function sendMessage(regenerate = false) {
 @media (max-width: 768px) {
   .container_size {
     width: 100%;
+  }
+}
+
+.height_chat {
+  height: calc(100% - 50rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .height_chat {
+    height: calc(100% - 26rem);
   }
 }
 </style>
