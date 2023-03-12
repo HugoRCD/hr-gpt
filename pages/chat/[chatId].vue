@@ -43,14 +43,14 @@ async function sendMessage(regenerate = false) {
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <ChatHeader :name="chat.name" :chat-id="chat.id" class="header" />
+  <div class="flex flex-col container_size">
+    <ChatHeader :name="chat.name" :chat-id="chat.id" />
      <div class="h-screen p-4 flex-grow overflow-y-auto scroll-smooth flex flex-col gap-4">
       <div v-for="msg in chat.messages" :key="msg.id" class="flex flex-col"
            :class="msg.role === 'assistant' ? 'items-start' : 'items-end'">
         <Message :message="msg" />
       </div>
-      <Loader v-if="loading" />
+      <Loader v-if="loading" :size="20" />
     </div>
     <form class="bg-secondary sticky bottom-0 w-full h-26 md:h-50 p-4 flex flex-col items-center flex-shrink-0 gap-4"
           @submit.prevent="sendMessage">
@@ -71,15 +71,14 @@ async function sendMessage(regenerate = false) {
 </template>
 
 <style scoped lang="scss">
-.header {
+.container_size {
   position: fixed;
   width: calc(100% - 16rem);
 }
 
 @media (max-width: 768px) {
-  .header {
+  .container_size {
     width: 100%;
-    padding: 0.5rem 1rem;
   }
 }
 </style>

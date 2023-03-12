@@ -56,16 +56,16 @@ async function deleteChat() {
 </script>
 
 <template>
-  <div class="flex md:flex items-center md:justify-between p-6 bg-secondary">
+  <div class="flex items-center justify-between px-4 py-3 md:p-6 bg-secondary">
     <div class="min-w-0 flex-1">
-      <h2 class="text-2xl font-bold leading-7 text-primary sm:truncate sm:text-3xl sm:tracking-tight" v-if="!edit_mode">
+      <h2 class="text-sm md:text-2xl font-bold leading-7 text-primary sm:truncate sm:tracking-tight" v-if="!edit_mode">
         {{ nameRef }}
       </h2>
       <input type="text" v-model="nameRef"
-             class="bg-transparent text-2xl font-bold leading-7 text-primary sm:truncate sm:text-3xl sm:tracking-tight focus:outline-none"
+             class="text-sm bg-transparent md:text-2xl font-bold leading-7 text-primary sm:truncate sm:tracking-tight focus:outline-none"
              @blur="updateName" v-else />
     </div>
-    <div class="flex md:mt-0 md:ml-4">
+    <div class="flex gap-3">
       <button type="button" @click="edit_mode = !edit_mode" v-if="!edit_mode"
               class="flex gap-2 inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
         <PencilIcon class="h-4 w-4" />
@@ -81,7 +81,7 @@ async function deleteChat() {
         </span>
       </button>
       <button type="button" @click="open = true"
-              class="flex gap-2 ml-3 inline-flex items-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600">
+              class="flex gap-2 inline-flex items-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600">
         <TrashIcon class="h-4 w-4" />
         <span class="hidden sm:block">
           {{ $t("chat.delete") }}
