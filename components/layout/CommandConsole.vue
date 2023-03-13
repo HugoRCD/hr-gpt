@@ -85,10 +85,6 @@ onMounted(() => {
       if (event.metaKey && event.key === "k") open.value = !open.value;
     });
     document.addEventListener("keydown", (event) => {
-      if (event.metaKey && event.key === "a") {
-        event.preventDefault();
-        consoleActions.find((action) => action.shortcut === "⌘ + A").action();
-      }
       if (event.metaKey && event.key === "h") {
         event.preventDefault();
         consoleActions.find((action) => action.shortcut === "Ctrl + H").action();

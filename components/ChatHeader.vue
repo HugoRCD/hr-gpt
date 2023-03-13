@@ -56,7 +56,7 @@ async function deleteChat() {
 </script>
 
 <template>
-  <div class="flex items-center justify-between px-4 py-3 md:p-6 bg-secondary">
+  <div class="bg-primary-opacity/30 flex items-center justify-between px-4 py-3 md:p-6">
     <div class="min-w-0 flex-1">
       <h2 class="text-sm md:text-2xl font-bold leading-7 text-primary sm:truncate sm:tracking-tight" v-if="!edit_mode">
         {{ nameRef }}

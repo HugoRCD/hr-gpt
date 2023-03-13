@@ -30,7 +30,7 @@ async function startChat() {
   <div>
     <div class="hidden fixed flex w-64 flex-col md:flex lg:flex-shrink-0 overflow-hidden h-full">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div class="flex min-h-0 flex-1 flex-col border-r border-muted bg-primary">
+      <div class="flex min-h-0 flex-1 flex-col border-r border-muted">
         <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
           <div class="flex flex-shrink-0 items-center px-4">
             <Logo :isText="true" :isLogo="true" />
