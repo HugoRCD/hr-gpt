@@ -8,10 +8,12 @@ const chats = computed(() => {
   return chatStore.getChats;
 });
 
-const loading = ref(false);
+const globalStore = useGlobalStore();
+
+const loading = computed(() => globalStore.isLoading);
 
 async function startChat() {
-  loading.value = true;
+  globalStore.setLoading(true);
   const { data } = await useFetch("/api/chat/startChat", {
     method: "POST",
     body: {
@@ -21,7 +23,7 @@ async function startChat() {
   });
   if (data.value) {
     chatStore.addChat(data.value);
-    loading.value = false;
+    globalStore.setLoading(false);
   }
 }
 </script>
@@ -39,12 +41,19 @@ async function startChat() {
             <div class="flex-1 space-y-4 flex-start">
               <hr class="my-5 border-t border-muted" aria-hidden="true" />
               <div class="space-y-4 px-2">
-                <button class="w-full mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient" @click="startChat">
+                <button
+                  class="w-full mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient"
+                  @click="startChat"
+                >
                   <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                   {{ $t("chat.add") }}
                 </button>
-                <NuxtLink :to="`/chat/${chat.id}`"
-                          v-for="chat in chats" :key="chat.id" class="w-full bg-secondary flex items-center p-3 text-sm font-medium rounded-md text-white">
+                <NuxtLink
+                  :to="`/chat/${chat.id}`"
+                  v-for="chat in chats"
+                  :key="chat.id"
+                  class="w-full bg-secondary flex items-center p-3 text-sm font-medium rounded-md text-white"
+                >
                   <ChatBubbleLeftIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                   {{ chat.name }}
                 </NuxtLink>
